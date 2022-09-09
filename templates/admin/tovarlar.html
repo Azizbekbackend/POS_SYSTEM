@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'tovarlar/css/bootstrap.css' %}">
+    <title>Tovarlar</title>
+  </head>
+  <body style="background-color: #1d1e26;">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 bg-dark">
+          <h2 class="text-light text-center py-3">Tovarlar bo'limi</h2>
+        </div>
+      <div class="col-12 bg-dark d-flex align-items-center justify-content-between px-5 py-3" style="border-bottom: 1px solid white; border-top: 1px solid white;">
+        <a href="{% url 'boshliq:admin_home' %}">
+          <button class="btn btn-outline-success">Orqaga qaytish</button>
+        </a>
+        <form action="#" class="d-flex align-items-center justify-content-between" style="width: 30%;">
+           <input type="text" id="tova-search" class="form-control" placeholder="Tovar nomini kiriting" style="width: 60%;">
+        </form>
+        <a href="{% url 'boshliq:tovar_add_page' %}">
+          <button class="btn btn-outline-primary">Tovar qo'shish</button>
+        </a>
+      </div>
+
+
+        <div class="col-12 p-0">
+          <table class="table table-dark table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nomi</th>
+                <th scope="col">Soni</th>
+                <th scope="col">Kelgan narx</th>
+                <th scope="col">Foizi</th>
+                <th scope="col">Sotilgan narxi</th>
+                <th scope="col">Maxsulot turi</th>
+                <th scope="col">Firma</th>
+                <th scope="col">Shtrix code</th>
+                <th scope="col">Kelgan sana</th>
+                <th scope="col">buyruqlar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tovar in tovarlar %}
+              <tr>
+                <th scope="row">{{ tovar.id }}</th>
+                <td>{{ tovar.name }}</td>
+                <td>{{ tovar.soni }}</td>
+                <td>{{ tovar.kelgan_narxi }}</td>
+                <td>{{ tovar.foizi }}%</td>
+                <td>{{ tovar.sotilish_narxi }}</td>
+                <td>{{ tovar.mahsulot_turi }}</td>
+                <td>{{ tovar.firmasi }}</td>
+                <td>{{ tovar.shtrix_code }}</td>
+                <td>{{ tovar.created_at|date:'d-m-Y' }}</td>
+                <td>
+                  <a href="{% url 'boshliq:tovar_tahrirlash' tovar.id %}"><span class="btn btn-outline-primary">Tahrirlash</span></a>
+                  <a href="#"><span class=" mx-4 btn btn-outline-danger">O'chirish</span></a></td>
+              </tr>
+              {% endfor %}
+                          
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

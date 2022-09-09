@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="page-body">
+    <div class="container-fluid">        
+        <div class="page-title">
+            <div class="row">
+              <div class="card">
+                <div class="col-6" style="margin-left: 20px; margin-top: 30px;">
+                    <h3>Tovar Yaratish</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/boshliq/tovar_tahrirlash_save" class="form theme-form">
+                        {% csrf_token %}
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 col-form-label">Shtrix kod</label>
+                                    <div class="col-sm-9">
+                                      <input class="form-control" type="text" name="shtrix_kod" id="shtrix_kod" placeholder="Shtrix kodni kiriting" value="{{ tovar.shtrix_code }}">
+                                      <input type="hidden" name="tovar_id" value="{{ tovar.id }}" id="">
+                                    </div>
+                                  </div>
+                              <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Nomi</label>
+                                <div class="col-sm-9">
+                                  <input class="form-control" type="text" name="nomi" placeholder="Nomini kiriting" value="{{ tovar.name }}">
+                                </div>
+                              </div>
+                            
+                              <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Maxsulot turi</label>
+                                <div class="col">
+                                  <div class="d-flex w-75 justify-content-between">
+                                    <div class="form-check">
+                                      {% if tovar.mahsulot_turi == 'Dona' %}
+                                      <input
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="flexRadioDefault"
+                                        id="radioinline1"
+                                        value="Dona"
+                                        checked
+                                      />
+                                      {% else %}
+                                      <input
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="flexRadioDefault"
+                                        id="radioinline1"
+                                        value="Dona"
+                                        
+                                      />
+                                      {% endif %}
+                                      <label class="form-check-label" for="radioinline1">
+                                       Dona
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      {% if tovar.mahsulot_turi == 'Kilogram' %}
+                                      <input
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="flexRadioDefault"
+                                        id="radioinline2"
+                                        value="Kilogram"
+                                        checked
+                                      />
+                                      {% else %}
+                                      <input
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="flexRadioDefault"
+                                        id="radioinline2"
+                                        value="Kilogram"
+                                      />
+                                      {% endif %}
+                                      <label class="form-check-label" for="radioinline2">
+                                        Kilogram
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      {% if tovar.mahsulot_turi == 'Litr' %}
+                                      <input
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="flexRadioDefault"
+                                        id="radioinline3"
+                                        value="Litr"
+                                        checked
+                                      />
+                                      {% else %}
+                                      <input
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="flexRadioDefault"
+                                        id="radioinline3"
+                                        value="Litr"
+                                      />
+                                      {% endif %}
+                                      <label class="form-check-label" for="radioinline3">
+                                        Litr
+                                      </label>
+                                    </div>
+                                  </div>
+                                 
+                                </div>
+                              </div>
+                              <div id="My_maxsulot"  class="col" id="tovar_son" >
+                                <div class="mb-3 row">
+                                  <label class="col-sm-3 col-form-label">Mahsulot hajmi</label>
+                                  <div class="col-sm-9">
+                                    <input class="form-control" id="mahsulot_hajm" type="number" name="mahuslot_hajmi" placeholder="1 ta mahsulot hajmini kiriting (kg/litr)" value="{{ tovar.mahsulot_hajmi }}">
+                                  </div>
+                                </div>
+                                </div>
+                              
+                              <div class="col" id="tovar_son" >
+                                <div  class="mb-3 row">
+                                  <label class="col-sm-3 col-form-label">Soni</label>
+                                  <div class="col-sm-9">
+                                    <input class="form-control" id="mahsulot_soni" type="number" name="soni" placeholder="Sonini kiriting" value="{{ tovar.soni }}">
+                                  </div>
+                                </div>
+                                </div>    
+                                
+                                <div  id="My_Jami"  class="col" id="tovar_son" >
+                                    <div class="mb-3 row">
+                                      <label class="col-sm-3 col-form-label">Umumiy Hajmi</label>
+                                      <div class="col-sm-9">
+                                        <input class="form-control" id="umumiy_miqdor" type="number" name="umumiy_miqdori" placeholder="Umumiy Hajmi" value="{{ tovar.umumiy_miqdori }}">
+                                      </div>
+                                    </div>
+                                    </div> 
+                                
+                                <div class="col" id="tovar_son" >
+                                    <div class="mb-3 row">
+                                      <label class="col-sm-3 col-form-label">Kelgan narxi</label>
+                                      <div class="col-sm-9">
+                                        <input class="form-control" id="kelgan_narxi" type="number" name="kelgan_narxi" placeholder="Narxini kiriting" value="{{ tovar.kelgan_narxi }}">
+                                      </div>
+                                    </div>
+                                </div> 
+
+                                <div class="col" id="tovar_son" >
+                                    <div class="mb-3 row">
+                                      <label class="col-sm-3 col-form-label">Foizi</label>
+                                      <div class="col-sm-9">
+                                        <input class="form-control"  id="foizi" type="number" name="foizi" placeholder="Foizi %" value="{{ tovar.foizi }}">
+                                      </div>
+                                    </div>
+                                </div>
+
+                                <div class="col" id="tovar_son" >
+                                    <div class="mb-3 row">
+                                      <label class="col-sm-3 col-form-label">Sotilish narxi</label>
+                                      <div class="col-sm-9">
+                                        <input class="form-control" id="sotlish_narxi"  type="number" name="sotilish_narxi" placeholder="Sotilish narxi" value="{{ tovar.sotilish_narxi }}">
+                                      </div>
+                                    </div>
+                                </div>
+
+                                <div class="col" id="tovar_son" >
+                                    <div class="mb-3 row">
+                                      <label class="col-sm-3 col-form-label">Firmasi</label>
+                                      <div class="col-sm-9">
+                                        <input class="form-control" type="text" name="firma" placeholder="Firmasini kiriting" value="{{ tovar.firmasi }}">
+                                      </div>
+                                    </div>
+                                </div>
+
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            {% if messages %}
+                              {% for message in messages %}
+                              {% if message.tags == 'error' %}
+                              <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                              {% endif %}
+                              {% if message.tags == 'success' %}
+                              <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                              {% endif %}
+                              {% endfor %}
+                            {% endif %}
+                          </div>
+                        <div class=" text-end">
+                          <div class="col-sm-9 offset-sm-3 mt-3">
+                            <button class="btn btn-primary"  type="submit">Tahrirlash</button>
+                          </div>
+                        </div>
+                      </form>
+                </div> 
+              </div>               
+            </div>
+        </div>
+                  
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+let shtrix_kod = document.getElementById('shtrix_kod')
+
+const autoFull =  () => {
+  let shtrixValue = shtrix_kod.value
+    
+
+         $.ajax({
+                type: "POST",
+                url: "{% url 'boshliq:tovar_shtrix_code' %}",
+                data: {
+                    'shtrix_code':shtrixValue,
+                },
+                success: function (response){
+                    let List = response.data
+                    let Object = List[0]
+                    shtrix_kod.value = Object.soni
+                    
+                }
+            });
+}
+document.addEventListener('keydown' , (e) => {
+  if(e.keyCode == 9){
+    autoFull()
+  }
+})
+</script>
+<script src="{%static 'javaScript/main.js'%}"></script>
+{% endblock content %}

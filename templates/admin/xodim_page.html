@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-body">
+    <div class="container-fluid">        
+        <div class="page-title">
+            <div class="row">
+                
+                <div class="card">
+                    <div class="col-6" style="margin-left: 20px; margin-top: 20px;">
+                        <h3>Xodim Yaratish</h3>
+                    </div>
+                <div class="card-body">
+                    <form method="post" action="/boshliq/xodim_qoshish" class="form theme-form">
+                        {% csrf_token %}
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                              <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Username</label>
+                                <div class="col-sm-9">
+                                  <input class="form-control" type="text" name="username" placeholder="Username kiriting">
+                                </div>
+                              </div>
+                              <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Parol</label>
+                                <div class="col-sm-9">
+                                  <input class="form-control" type="text" name="password" placeholder="Parol kiriting">
+                                </div>
+                              </div>
+                                                          
+                              
+
+                              <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label">Xodim Lavozomini Tanlang</label>
+                                <div class="col-sm-9">
+                                  <select  class="js-example-placeholder-multiple col-sm-12" name="xodim_turi" >
+                                    <option value="Boshliq">Boshliq</option>
+                                    <option value="Sotuvchi">Sotuvchi</option>
+                                  </select>
+                                </div>
+                              </div>
+                              
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            {% if messages %}
+                              {% for message in messages %}
+                              {% if message.tags == 'error' %}
+                              <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                              {% endif %}
+                              {% if message.tags == 'success' %}
+                              <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                              {% endif %}
+                              {% endfor %}
+                            {% endif %}
+                          </div>
+                        <div class=" text-end">
+                          <div class="col-sm-9 offset-sm-3 mt-3">
+                            <button class="btn btn-primary" type="submit">Qoshish</button>
+                          </div>
+                        </div>
+                      </form>
+                </div>  
+                                    
+                </div>      
+                        
+            </div>
+            <hr class="mt-4 mb-4">
+
+            <h3>Xodimlar Ro'yxati</h3>
+            <div class="card mt-4">
+                <div class="table-responsive">
+                  <table class="table" id="xodimTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Xodim Lavozimi</th>                      
+                        <th style="text-align: center;" scope="col">Buyruq</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for profile in profiles %}
+                      <tr>
+                        <th scope="row">{{ profile.id }}</th>
+                        <td>{{ profile.username }}</td>
+                        <td>{{ profile.user_type }}</td>
+                        <td style="text-align: center;">
+                            <a href="{% url 'boshliq:xodim_delete' profile.id %}" class="btn btn-danger" id="btnDelete" onclick=" return confirm('O`chirib Tashlamoqchimisiz ?')">Ochirish</a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+        </div>
+                  
+    </div>
+</div>
+{% endblock content %}
