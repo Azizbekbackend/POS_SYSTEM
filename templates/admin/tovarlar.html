@@ -7,6 +7,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'tovarlar/css/bootstrap.css' %}">
     <title>Tovarlar</title>
+    <style>
+      .pagination {
+        float: right;
+        margin: 0 0 5px;
+      }
+      .pagination li a {
+        border: none;
+        font-size: 95%;
+        width: 30px;
+        height: 30px;
+        color: #999;
+        margin: 0 2px;
+        line-height: 30px;
+        border-radius: 30px !important;
+        text-align: center;
+        padding: 0;
+      }
+      .pagination li a:hover {
+        color: #666;
+      }
+      .pagination li.active a {
+        background: #03a9f4;
+      }
+      .pagination li.active a:hover {
+        background: #0397d6;
+      }
+      .pagination li.disabled i {
+        color: #ccc;
+      }
+      .pagination li i {
+        font-size: 16px;
+        padding-top: 6px;
+      }
+    </style>
   </head>
   <body style="background-color: #1d1e26;">
     <div class="container-fluid">
@@ -18,8 +52,8 @@
         <a href="{% url 'boshliq:admin_home' %}">
           <button class="btn btn-outline-success">Orqaga qaytish</button>
         </a>
-        <form action="#" class="d-flex align-items-center justify-content-between" style="width: 30%;">
-           <input type="text" id="tova-search" class="form-control" placeholder="Tovar nomini kiriting" style="width: 60%;">
+        <form method="get" action="" style="display: flex; width: 30%;" class="d-flex align-items-center justify-content-between" >
+           <input type="text" name="q" id="tova-search" class="form-control" placeholder="Tovar nomini kiriting" style="width: 60%;">
         </form>
         <a href="{% url 'boshliq:tovar_add_page' %}">
           <button class="btn btn-outline-primary">Tovar qo'shish</button>
@@ -59,7 +93,7 @@
                 <td>{{ tovar.created_at|date:'d-m-Y' }}</td>
                 <td>
                   <a href="{% url 'boshliq:tovar_tahrirlash' tovar.id %}"><span class="btn btn-outline-primary">Tahrirlash</span></a>
-                  <a href="#"><span class=" mx-4 btn btn-outline-danger">O'chirish</span></a></td>
+                  <a href="{% url 'boshliq:tovar_delete' tovar.id %}" onclick=" return confirm('O`chirib Tashlamoqchimisiz ?')"><span class=" mx-4 btn btn-outline-danger">O'chirish</span></a></td>
               </tr>
               {% endfor %}
                           
@@ -67,6 +101,7 @@
           </table>
         </div>
       </div>
+        {% include 'pagination.html' with page=tovarlar %}
     </div>
   </body>
 </html>

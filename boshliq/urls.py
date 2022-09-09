@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, xodim_page,xodim_delete,xodim_qoshish,tovarlar_page,tovar_add_page,tovar_add_save,tovar_shtrix_code,tovar_tahrirlash,tovar_tahrirlash_save
+from .views import home, xodim_page,xodim_delete,xodim_qoshish,tovarlar_page,tovar_add_page,tovar_add_save,tovar_shtrix_code,tovar_tahrirlash,tovar_tahrirlash_save,tovar_delete
 app_name = 'boshliq'
 
 urlpatterns = [
@@ -13,6 +13,6 @@ urlpatterns = [
     path('tovar_shtrix_code',tovar_shtrix_code,name="tovar_shtrix_code"),
     path('tovar_tahrirlash/<int:id>',tovar_tahrirlash,name="tovar_tahrirlash"),
     path('tovar_tahrirlash_save',tovar_tahrirlash_save,name="tovar_tahrirlash_save"),
-
+    path('tovar_delete/<int:id>',tovar_delete, name="tovar_delete"),
 
 ]

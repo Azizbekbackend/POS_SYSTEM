@@ -54,19 +54,21 @@ def xodim_delete(request,id):
 def tovarlar_page(request):
     object_list = Tovar.objects.all()
     #pagination
-    paginator = Paginator(object_list,3)
+    paginator = Paginator(object_list,10)
     page = request.GET.get('page')
     try:
-        users = paginator.page(page)
+        tovarlar = paginator.page(page)
     except PageNotAnInteger:
-        users = paginator.page(1)
+        tovarlar = paginator.page(1)
     except EmptyPage:
-        users = paginator.page(paginator.num_pages)
+        tovarlar = paginator.page(paginator.num_pages)
     q = request.GET.get('q')
     if q:
         tovarlar = object_list.filter(Q(name__contains=q))
     context = {
-        "tovarlar":tovarlar
+        "tovarlar":tovarlar,
+        "page":page,
+        "paginator":paginator
     }
     return render(request, 'admin/tovarlar.html',context)
 
@@ -212,3 +214,11 @@ def tovar_tahrirlash_save(request):
         except:
             messages.error(request,"Tovar Tahrirlanmadi")
             return HttpResponseRedirect(reverse("boshliq:tovar_tahrirlash",kwargs={"id":tovar_id}))
+
+
+
+def tovar_delete(request,id):
+    tovar = get_object_or_404(Tovar, id=id)
+    tovar.delete()
+    return HttpResponseRedirect(reverse("boshliq:tovarlar_page"))
+    
